@@ -12,7 +12,7 @@ Write this stuff to SPEC.md in the current folder.
 
 One prerequisite is to have `playwright-cli --help` available on the command line.
 This is the playwright-cli from microsoft - look it up and install with npm if not available.
-Make sure to write a config file in the current folder:
+Make sure to write a config file:
 
 `.playwright/cli.config.json`:
 
