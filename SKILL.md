@@ -84,7 +84,7 @@ Write a CLI tool called `swarm` in Node which does the following:
 If the user uses claude, the claude cli should be used in non-interactive mode with the following args:
 
 ```bash
---system-prompt You are an expert coding assistant operating inside Claude Code, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files.
+--system-prompt "You are an expert coding assistant operating inside Claude Code, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files."
 --dangerously-skip-permissions
 --model opus
 --effort high
