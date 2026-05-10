@@ -41,7 +41,7 @@ tasks:
   planner:
     concurrency: 1
     prompt-string: |
-      Brainsorm and then plan the next logical task.
+      Brainstorm and then plan the next logical task.
       Look at the SPEC.md, the code base, and use playwright-cli to view the application to come up with ideas for the next task.
       The frontend and backend should stay in sync, don't let one get too far ahead of the other.
       Write to ./swarm/tasks/{incrementalNumber}-{taskName}.pending.md
