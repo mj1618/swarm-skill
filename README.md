@@ -1,6 +1,6 @@
 # Swarm Skill
 
-To get started, ask your LLM to read `https://raw.githubusercontent.com/mj1618/supplywise/refs/heads/main/SKILL.md`
+To get started, ask your LLM to read `https://raw.githubusercontent.com/mj1618/swarm-skill/refs/heads/main/SKILL.md`
 
 ## What it does
 
