@@ -1,19 +1,19 @@
-# Swarm Skill
+---
+name: swarm-skill
+description: Bootstraps a ralph-loop swarm of planner/builder/reviewer agents driven by a swarm.yaml config and a small `swarm` CLI, so the team can work on a project autonomously. Use when the user wants to set up an autonomous multi-agent team, a ralph loop, or a continuous planner-builder-reviewer pipeline for their codebase.
+---
 
-This is a skill that bootstraps a team of agents and a mini cli tool to help do this.
+## Overview
+
+This skill bootstraps a team of agents and a mini CLI tool that drives them in a ralph loop (planner → builder → reviewer, repeated). Follow the steps below in order.
 
 ## First understand the project
 
-Unless SPEC.md already exists (meaning the user has already been through this step), then you need to ask the user some questions about what they're trying to build.
-This includes the tech stack, and some high level requirements of the project.
-But keep it short and succinct, 3 questions max.
-Write this stuff to SPEC.md in the current folder.
+Unless `SPEC.md` already exists (meaning the user has already been through this step), ask the user some questions about what they're trying to build. Cover the tech stack and some high-level requirements of the project. Keep it short and succinct — 3 questions max. Write the answers to `SPEC.md` in the current folder.
 
 ## Playwright CLI
 
-One prerequisite is to have `playwright-cli --help` available on the command line.
-This is the playwright-cli from microsoft - look it up and install with npm if not available.
-Make sure to write a config file:
+One prerequisite is to have `playwright-cli --help` available on the command line. This is the playwright-cli from Microsoft — look it up and install it with npm if it isn't available. Also write a config file:
 
 `.playwright/cli.config.json`:
 
@@ -31,8 +31,7 @@ Make sure to write a config file:
 
 ## Write the swarm.yaml
 
-The swarm.yaml is a way for the user to easily modify and see the prompts of the agents, and the other config.
-By default, the below should work for most projects.
+The `swarm.yaml` lets the user easily view and modify the prompts of the agents and the rest of the config. The default below should work for most projects — write it as-is unless the user has asked for something different.
 
 `swarm.yaml`:
 
@@ -75,16 +74,16 @@ pipelines:
 
 ## Build the CLI tool
 
-If a `swarm` cli tool already exists under the current project folder, don't write a new one but DO make sure it meets all the below requirements.
+If a `swarm` CLI tool already exists under the current project folder, don't write a new one — but do make sure it meets all the requirements below.
 
-If it doesn't exist, create a CLI tool called `swarm` in Node which does the following:
+If it doesn't exist, create a CLI tool called `swarm` in Node that:
 
-- reads and parses swarm.yaml
-- runs the appropriate pipeline with a certain parallelism and for a number of iterations
-- have complete visibility into the agents context window under an `output` directory - this includes the config used to start it, the jsonl output, and the text-output for humans to read. The iteration folder names to use for each iteration should be sequential, even across different runs of the tool (i.e. a second run of the tool shouldn't start from iteration-1 again as its confusing for the user).
-- if the user changes swarm.yaml - make sure this is picked up on the very next step or iteration
+- Reads and parses `swarm.yaml`.
+- Runs the appropriate pipeline with a given parallelism for a given number of iterations.
+- Gives complete visibility into each agent's context window under an `output/` directory — including the config used to start it, the JSONL output, and a human-readable text output. Iteration folder names must be sequential across different runs of the tool (a second run should NOT restart from iteration-1, as that's confusing for the user).
+- Picks up changes to `swarm.yaml` on the very next step or iteration if the user edits it mid-run.
 
-If the user uses claude, the claude cli should be used in non-interactive mode with the following args:
+If the user uses Claude, invoke the `claude` CLI in non-interactive mode with the following args:
 
 ```bash
 --system-prompt "You are an expert coding assistant operating inside Claude Code, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files."
@@ -96,12 +95,10 @@ If the user uses claude, the claude cli should be used in non-interactive mode w
 --verbose
 ```
 
-If the user uses codex - do something equivelant.
+If the user uses Codex, do something equivalent.
 
 ## Robustness
 
-Sometimes claude finishes its task but doesn't send the expected finish event.
-Also sometimes there is a bug where it may just hang anyway.
+Sometimes Claude finishes its task but doesn't send the expected finish event. Sometimes it may just hang outright. Both will stop the entire pipeline if not handled.
 
-We should be robust to these kinds of failures, as it will stop the entire pipeline.
-Detect these and take appropriate remediations.
+Detect these failures and take appropriate remediations so the pipeline keeps running despite them.
