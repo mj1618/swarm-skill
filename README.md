@@ -7,5 +7,6 @@ The skill bootstraps (just from the SKILL.md) an autonomous ralph-loop swarm of 
 No need to install the skill, simply paste the following into your LLM inside an empty project folder:
 
 ```markdown
-Read and implement the following: https://raw.githubusercontent.com/mj1618/swarm-skill/refs/heads/main/SKILL.md
+Read and implement the following:
+https://raw.githubusercontent.com/mj1618/swarm-skill/refs/heads/main/SKILL.md
 ```
