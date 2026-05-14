@@ -4,8 +4,9 @@ This is a skill that bootstraps a team of agents and a mini cli tool to help do 
 
 ## First understand the project
 
-You need to ask the user some questions about what they're trying to build.
+Unless SPEC.md already exists (meaning the user has already been through this step), then you need to ask the user some questions about what they're trying to build.
 This includes the tech stack, and some high level requirements of the project.
+But keep it short and succinct, 3 questions max.
 Write this stuff to SPEC.md in the current folder.
 
 ## Playwright CLI
@@ -74,11 +75,13 @@ pipelines:
 
 ## Build the CLI tool
 
-Write a CLI tool called `swarm` in Node which does the following:
+If a `swarm` cli tool already exists under the current project folder, don't write a new one but DO make sure it meets all the below requirements.
+
+If it doesn't exist, create a CLI tool called `swarm` in Node which does the following:
 
 - reads and parses swarm.yaml
 - runs the appropriate pipeline with a certain parallelism and for a number of iterations
-- have complete visibility into the agents context window under an `output` directory - this includes the config used to start it, the jsonl output, and the text-output for humans to read.
+- have complete visibility into the agents context window under an `output` directory - this includes the config used to start it, the jsonl output, and the text-output for humans to read. The iteration folder names to use for each iteration should be sequential, even across different runs of the tool (i.e. a second run of the tool shouldn't start from iteration-1 again as its confusing for the user).
 - if the user changes swarm.yaml - make sure this is picked up on the very next step or iteration
 
 If the user uses claude, the claude cli should be used in non-interactive mode with the following args:
